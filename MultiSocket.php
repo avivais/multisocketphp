@@ -100,7 +100,7 @@ EOF;
     }
 
     private function showMain($idx) {
-        $this->write($idx, self::MAIN_MENU);
+        $this->write($idx, self::MAIN_MENU, false);
     }
 
     private function showDiskSpace($idx) {
@@ -135,13 +135,10 @@ EOF;
 
     private function showSearchResults($id, $searchResults) {
         if (count($searchResults)) {
+            $resultsOutput = implode("\r\n\r\n", array_column($searchResults, 'url'));
             $msg = "====================\r\n";
-            foreach ($searchResults as $result) {
-                $msg .= "{$result['title']}\r\n";
-                $msg .= "{$result['url']}\r\n";
-                $msg .= "\r\n{$result['desc']}\r\n";
-                $msg .= "====================\r\n";
-            }
+            $msg .= "{$resultsOutput}\r\n";
+            $msg .= "====================";
             $this->write($id, $msg);
         }
     }
